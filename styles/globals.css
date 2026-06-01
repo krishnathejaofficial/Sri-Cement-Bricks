@@ -235,3 +235,55 @@ label {
 @media (min-width: 769px) {
   .hide-desktop { display: none !important; }
 }
+
+/* Responsive Grid & Flex Utilities */
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 769px) {
+  .responsive-grid-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+}
+
+.responsive-grid-4-small {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .responsive-grid-4-small {
+    gap: 16px;
+  }
+}
+
+/* Order Modal & Mobile UX Enhancements */
+@media (max-width: 640px) {
+  .mobile-modal-wrapper {
+    padding: 12px !important;
+  }
+  .mobile-modal-content {
+    border-radius: 18px !important;
+    max-height: 94vh !important;
+  }
+  .mobile-modal-header {
+    padding: 16px 20px !important;
+  }
+  .mobile-modal-body {
+    padding: 18px !important;
+  }
+  .mobile-step-bar-item {
+    padding: 8px 4px !important;
+    font-size: 0.72rem !important;
+  }
+  .mobile-hero-stats {
+    gap: 20px !important;
+    margin-top: 32px !important;
+  }
+}
+

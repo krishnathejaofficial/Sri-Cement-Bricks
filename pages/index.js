@@ -241,8 +241,7 @@ export default function Home({ products, locations, settings }) {
       {/* ABOUT SECTION */}
       <section id="about" style={{ padding: '80px 0' }}>
         <div className="container">
-          <div style={{
-            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px',
+          <div className="responsive-grid-2" style={{
             alignItems: 'center',
           }}>
             <div>
@@ -262,7 +261,7 @@ export default function Home({ products, locations, settings }) {
                 We provide end-to-end service — from manufacturing to delivery at your doorstep, with optional loading/unloading labour support.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="responsive-grid-4-small">
                 {[
                   { icon: '🏭', text: 'In-house Manufacturing' },
                   { icon: '🚚', text: 'Pan-AP Delivery' },

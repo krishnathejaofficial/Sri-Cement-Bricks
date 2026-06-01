@@ -136,19 +136,19 @@ export default function OrderModal({ product, onClose, settings, locations }) {
   };
 
   return (
-    <div style={{
+    <div className="mobile-modal-wrapper" style={{
       position: 'fixed', inset: 0, zIndex: 9999,
       background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: '20px',
     }} onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div style={{
+      <div className="mobile-modal-content" style={{
         background: 'white', borderRadius: '24px', width: '100%',
         maxWidth: 680, maxHeight: '90vh', overflow: 'auto',
         boxShadow: '0 40px 100px rgba(0,0,0,0.3)',
       }}>
         {/* Header */}
-        <div style={{
+        <div className="mobile-modal-header" style={{
           background: 'linear-gradient(135deg, #1c0a00, #78350f)',
           padding: '24px 28px', color: 'white',
           borderRadius: '24px 24px 0 0',
@@ -173,7 +173,7 @@ export default function OrderModal({ product, onClose, settings, locations }) {
         {step < 4 && (
           <div style={{ display: 'flex', borderBottom: '2px solid #f3f4f6' }}>
             {['Customer Info', 'Location & Extras', 'Payment'].map((s, i) => (
-              <div key={i} style={{
+              <div key={i} className="mobile-step-bar-item" style={{
                 flex: 1, padding: '12px', textAlign: 'center',
                 background: step === i+1 ? '#fef3e2' : step > i+1 ? '#d1fae5' : 'white',
                 color: step === i+1 ? '#c2410c' : step > i+1 ? '#065f46' : '#9ca3af',
@@ -187,7 +187,7 @@ export default function OrderModal({ product, onClose, settings, locations }) {
           </div>
         )}
 
-        <div style={{ padding: '28px' }}>
+        <div className="mobile-modal-body" style={{ padding: '28px' }}>
           {/* Step 1: Customer Info */}
           {step === 1 && (
             <div>
