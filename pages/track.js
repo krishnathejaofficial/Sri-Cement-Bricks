@@ -42,7 +42,8 @@ export default function TrackOrder() {
   return (
     <>
       <Head>
-        <title>Track Your Order</title>
+        <title>Track Your Order — KRISHNATEJA BRICKS</title>
+        <link rel="icon" href="/krishnatejabrickslogo.png" />
       </Head>
 
       <div style={{
@@ -62,11 +63,10 @@ export default function TrackOrder() {
               ← Back to Home
             </Link>
             <div style={{ color: 'rgba(255,255,255,0.3)' }}>|</div>
-            <span style={{
-              fontFamily: 'Playfair Display', color: 'white', fontSize: '1.1rem', fontWeight: 700,
-            }}>
-              🧱 Order Tracker
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <img src="/krishnatejabrickslogo.png" alt="KRISHNATEJA BRICKS" style={{ width: 26, height: 26, borderRadius: '6px', objectFit: 'cover' }} />
+              <span style={{ fontFamily: 'Playfair Display', color: 'white', fontSize: '1.1rem', fontWeight: 700 }}>Order Tracker</span>
+            </div>
           </div>
         </div>
 

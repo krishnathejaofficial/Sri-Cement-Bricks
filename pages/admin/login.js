@@ -25,7 +25,7 @@ export default function AdminLogin() {
 
   return (
     <>
-      <Head><title>Admin Login — Brick Store</title></Head>
+      <Head><title>Admin Login — KRISHNATEJA BRICKS</title><link rel="icon" href="/krishnatejabrickslogo.png" /></Head>
       <div style={{
         minHeight: '100vh',
         background: 'linear-gradient(135deg, #0f0500, #1c0a00, #3d1a02)',
@@ -52,17 +52,19 @@ export default function AdminLogin() {
         }}>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <div style={{
-              width: 60, height: 60, background: 'linear-gradient(135deg, #c2410c, #ea580c)',
-              borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.8rem', margin: '0 auto 16px',
+              width: 60, height: 60,
+              borderRadius: '16px', overflow: 'hidden',
+              margin: '0 auto 16px',
               boxShadow: '0 8px 30px rgba(194,65,12,0.4)',
-            }}>🧱</div>
+            }}>
+              <img src="/krishnatejabrickslogo.png" alt="KRISHNATEJA BRICKS" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
             <h1 style={{
               fontFamily: 'Playfair Display', color: 'white', fontSize: '1.8rem',
               marginBottom: '8px',
-            }}>Admin Portal</h1>
+            }}>KRISHNATEJA BRICKS</h1>
             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem' }}>
-              Sign in to manage your brick store
+              Admin Portal — Sign in to manage your store
             </p>
           </div>
 

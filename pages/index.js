@@ -38,14 +38,15 @@ export default function Home({ products, locations, settings }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [trackCode, setTrackCode] = useState('');
 
-  const companyName = settings.companyName || 'Sri Cement Bricks';
+  const companyName = settings.companyName || 'KRISHNATEJA BRICKS';
   const banner = settings.announcementBanner;
 
   return (
     <>
       <Head>
-        <title>{companyName} — Premium Cement Bricks</title>
-        <meta name="description" content={`Order premium cement bricks from ${companyName}. Fast delivery across Andhra Pradesh.`} />
+        <title>{companyName} — Strong Bricks. Stronger Future.</title>
+        <meta name="description" content={`Order premium cement bricks from ${companyName}. Fast delivery across Andhra Pradesh & Tamil Nadu. Call +91 93908 50349.`} />
+        <link rel="icon" href="/krishnatejabrickslogo.png" />
       </Head>
 
       <Navbar settings={settings} />
@@ -82,12 +83,13 @@ export default function Home({ products, locations, settings }) {
         <div className="container" style={{ position: 'relative', zIndex: 1, padding: '60px 24px' }}>
           <div style={{ maxWidth: 700 }}>
             <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              display: 'inline-flex', alignItems: 'center', gap: '10px',
               background: 'rgba(194,65,12,0.3)', border: '1px solid rgba(234,88,12,0.5)',
-              padding: '8px 18px', borderRadius: '30px', marginBottom: '24px',
+              padding: '6px 18px 6px 6px', borderRadius: '30px', marginBottom: '24px',
             }}>
+              <img src="/krishnatejabrickslogo.png" alt="KRISHNATEJA BRICKS" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }} />
               <span style={{ color: '#fb923c', fontSize: '0.85rem', fontWeight: 600 }}>
-                🧱 Premium Quality Since 2010
+                Strong Bricks. Stronger Future.
               </span>
             </div>
 
@@ -97,15 +99,15 @@ export default function Home({ products, locations, settings }) {
               fontWeight: 900, color: 'white', lineHeight: 1.1,
               marginBottom: '24px',
             }}>
-              Build Strong,<br />
-              <span style={{ color: '#fb923c' }}>Build Right.</span>
+              KRISHNATEJA<br />
+              <span style={{ color: '#fb923c' }}>BRICKS</span>
             </h1>
 
             <p style={{
               color: 'rgba(255,255,255,0.75)', fontSize: '1.1rem',
               maxWidth: 520, lineHeight: 1.7, marginBottom: '40px',
             }}>
-              Premium cement bricks for every construction need. Delivered across Andhra Pradesh with guaranteed quality and timely service.
+              Premium cement bricks for every construction need. Delivered across Andhra Pradesh &amp; Tamil Nadu with guaranteed quality and timely service.
             </p>
 
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
@@ -348,9 +350,13 @@ export default function Home({ products, locations, settings }) {
 
       {/* Footer */}
       <footer style={{
-        background: '#0f0500', padding: '24px',
+        background: '#0f0500', padding: '24px 16px',
         color: 'rgba(255,255,255,0.4)', textAlign: 'center', fontSize: '0.85rem',
       }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '8px' }}>
+          <img src="/krishnatejabrickslogo.png" alt="KRISHNATEJA BRICKS" style={{ width: 28, height: 28, borderRadius: '6px', objectFit: 'cover' }} />
+          <span style={{ fontFamily: 'Playfair Display', color: 'rgba(255,255,255,0.6)', fontWeight: 700, fontSize: '0.95rem' }}>{companyName}</span>
+        </div>
         © {new Date().getFullYear()} {companyName}. All rights reserved.
       </footer>
 

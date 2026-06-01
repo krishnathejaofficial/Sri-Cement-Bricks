@@ -77,7 +77,7 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <Head><title>Admin — {settings.companyName || 'Brick Store'}</title></Head>
+      <Head><title>Admin — {settings.companyName || 'KRISHNATEJA BRICKS'}</title><link rel="icon" href="/krishnatejabrickslogo.png" /></Head>
       <div style={{ minHeight: '100vh', background: '#f8f5f2', display: 'flex' }}>
 
         {/* Sidebar */}
@@ -90,39 +90,17 @@ export default function AdminDashboard() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{
                 width: 36, height: 36,
-                borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                borderRadius: '8px',
                 overflow: 'hidden',
                 flexShrink: 0,
               }}>
-                {settings.logoUrl ? (
-                  <img src={settings.logoUrl} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                ) : (
-                  <>
-                    <img 
-                      src="/krishnatejabrickslogo.png" 
-                      alt="Logo" 
-                      onError={(e) => { 
-                        e.target.style.display = 'none'; 
-                        const fb = e.target.nextSibling;
-                        if (fb) fb.style.display = 'flex';
-                      }} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                    />
-                    <div style={{
-                      display: 'none',
-                      width: '100%', height: '100%',
-                      background: 'linear-gradient(135deg, #c2410c, #ea580c)',
-                      alignItems: 'center', justifyContent: 'center',
-                      fontSize: '1.2rem'
-                    }}>🧱</div>
-                  </>
-                )}
+                <img src="/krishnatejabrickslogo.png" alt="KRISHNATEJA BRICKS" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div>
                 <div style={{ color: 'white', fontWeight: 700, fontSize: '0.9rem', fontFamily: 'Playfair Display' }}>
-                  {(settings.companyName || 'Brick Store').length > 16
-                    ? (settings.companyName || 'Brick Store').slice(0, 14) + '…'
-                    : (settings.companyName || 'Brick Store')}
+                  {(settings.companyName || 'KRISHNATEJA BRICKS').length > 18
+                    ? (settings.companyName || 'KRISHNATEJA BRICKS').slice(0, 16) + '…'
+                    : (settings.companyName || 'KRISHNATEJA BRICKS')}
                 </div>
                 <div style={{ color: '#f97316', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Admin Panel</div>
               </div>
@@ -995,42 +973,12 @@ function SettingsTab({ settings, settingsRaw, onRefresh, adminEmail }) {
           <div>
             <label>Company Logo</label>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '8px' }}>
-              {form.logoUrl ? (
-                <div style={{ position: 'relative', width: '60px', height: '60px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #e7e5e4', background: '#fcf8f2' }}>
-                  <img src={form.logoUrl} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <button
-                    type="button"
-                    onClick={() => setForm(f => ({ ...f, logoUrl: '' }))}
-                    style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(239, 68, 68, 0.9)', color: 'white', border: 'none', width: '20px', height: '20px', borderRadius: '0 0 0 8px', fontSize: '0.65rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  >✕</button>
-                </div>
-              ) : (
-                <div style={{ width: '60px', height: '60px', borderRadius: '10px', border: '2px dashed #d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', background: '#fffbeb', color: '#ea580c' }}>🧱</div>
-              )}
-              <div style={{ flex: 1 }}>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    if (file.size > 2 * 1024 * 1024) {
-                      toast.error('Logo image must be smaller than 2MB');
-                      return;
-                    }
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setForm(f => ({ ...f, logoUrl: reader.result }));
-                    };
-                    reader.readAsDataURL(file);
-                  }}
-                  style={{ display: 'none' }}
-                  id="logo-upload-input"
-                />
-                <label htmlFor="logo-upload-input" style={{ display: 'inline-block', background: 'linear-gradient(135deg, #c2410c, #ea580c)', color: 'white', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem', textAlign: 'center', marginBottom: 0 }}>
-                  📤 Choose Logo Image
-                </label>
-                <div style={{ color: '#9ca3af', fontSize: '0.7rem', marginTop: '6px' }}>Max 2MB. Stored directly in database.</div>
+              <div style={{ width: '60px', height: '60px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #e7e5e4', background: '#fcf8f2' }}>
+                <img src="/krishnatejabrickslogo.png" alt="KRISHNATEJA BRICKS" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#1c0a00' }}>krishnatejabrickslogo.png</div>
+                <div style={{ color: '#059669', fontSize: '0.75rem', marginTop: '2px' }}>✅ Logo is active and displaying across the website</div>
               </div>
             </div>
           </div>

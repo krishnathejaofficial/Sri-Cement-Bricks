@@ -11,9 +11,9 @@ export const config = {
 };
 
 const DEFAULT_SETTINGS = [
-  { key: 'companyName', value: 'Sri Cement Bricks', label: 'Company Name', type: 'string' },
-  { key: 'companyPhone', value: '+91 98765 43210', label: 'Company Phone', type: 'string' },
-  { key: 'companyAddress', value: 'Chittoor, Andhra Pradesh', label: 'Company Address', type: 'string' },
+  { key: 'companyName', value: 'KRISHNATEJA BRICKS', label: 'Company Name', type: 'string' },
+  { key: 'companyPhone', value: '+91 93908 50349', label: 'Company Phone', type: 'string' },
+  { key: 'companyAddress', value: 'pedha Bommajugunta, nemelur, gummidipoondi tk, tiruvalur district, Tamil Nadu', label: 'Company Address', type: 'string' },
   { key: 'companyEmail', value: 'krishnatejareddy2003@gmail.com', label: 'Company Contact Email', type: 'string' },
   { key: 'logoUrl', value: '', label: 'Company Logo Image (Base64)', type: 'string' },
   { key: 'baseTransportPrice', value: 500, label: 'Base Transport Price (₹)', type: 'number' },

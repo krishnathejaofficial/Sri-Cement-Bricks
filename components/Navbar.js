@@ -12,7 +12,7 @@ export default function Navbar({ settings = {} }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const companyName = settings.companyName || 'Sri Cement Bricks';
+  const companyName = settings.companyName || 'KRISHNATEJA BRICKS';
   const banner = settings.announcementBanner;
   const navLinks = [
     { href: '#products', label: 'Products' },
@@ -94,35 +94,12 @@ export default function Navbar({ settings = {} }) {
                 style={{
                   width: 40, height: 40,
                   borderRadius: '10px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: '0 4px 14px rgba(194,65,12,0.45)',
                   overflow: 'hidden',
                   flexShrink: 0,
+                  boxShadow: '0 4px 14px rgba(194,65,12,0.45)',
                 }}
               >
-                {settings.logoUrl ? (
-                  <img src={settings.logoUrl} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                ) : (
-                  <>
-                    <img 
-                      src="/krishnatejabrickslogo.png" 
-                      alt="Logo" 
-                      onError={(e) => { 
-                        e.target.style.display = 'none'; 
-                        const fb = e.target.nextSibling;
-                        if (fb) fb.style.display = 'flex';
-                      }} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                    />
-                    <div style={{
-                      display: 'none',
-                      width: '100%', height: '100%',
-                      background: 'linear-gradient(135deg, #c2410c 0%, #f97316 100%)',
-                      alignItems: 'center', justifyContent: 'center',
-                      fontSize: '1.2rem'
-                    }}>🧱</div>
-                  </>
-                )}
+                <img src="/krishnatejabrickslogo.png" alt="KRISHNATEJA BRICKS" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div>
                 <div
@@ -147,7 +124,7 @@ export default function Navbar({ settings = {} }) {
                     marginTop: '1px',
                   }}
                 >
-                  Premium Cement Bricks
+                  Strong Bricks. Stronger Future.
                 </div>
               </div>
             </Link>
