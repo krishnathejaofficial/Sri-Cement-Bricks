@@ -290,9 +290,9 @@ export default function Home({ products, locations, settings }) {
                 Contact Us
               </h3>
               <div style={{ color: '#6b7280', lineHeight: 2 }}>
-                <div>📞 {settings.companyPhone || '+91 XXXXX XXXXX'}</div>
-                <div>📍 {settings.companyAddress || 'Chittoor, Andhra Pradesh'}</div>
-                <div>📧 {process.env.NEXT_PUBLIC_ADMIN_EMAIL || ''}</div>
+                <div>📞 {settings.companyPhone || '+91 93908 50349'}</div>
+                <div>📍 {settings.companyAddress || 'pedha Bommajugunta, Tamil Nadu'}</div>
+                <div>📧 {settings.companyEmail || 'krishnatejareddy2003@gmail.com'}</div>
               </div>
               <a href="#products" style={{
                 display: 'inline-block', marginTop: '24px',

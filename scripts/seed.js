@@ -102,17 +102,19 @@ const SAMPLE_LOCATIONS = [
 ];
 
 const DEFAULT_SETTINGS = [
-  { key: 'companyName', value: 'Sri Cement Bricks', label: 'Company Name', type: 'string' },
-  { key: 'companyPhone', value: '+91 98765 43210', label: 'Company Phone', type: 'string' },
-  { key: 'companyAddress', value: 'Chittoor, Andhra Pradesh - 517001', label: 'Company Address', type: 'string' },
+  { key: 'companyName', value: 'KRISHNATEJA BRICKS', label: 'Company Name', type: 'string' },
+  { key: 'companyPhone', value: '+91 93908 50349', label: 'Company Phone', type: 'string' },
+  { key: 'companyAddress', value: 'pedha Bommajugunta, nemelur, gummidipoondi tk, tiruvalur district, Tamil Nadu', label: 'Company Address', type: 'string' },
+  { key: 'companyEmail', value: 'krishnatejareddy2003@gmail.com', label: 'Company Contact Email', type: 'string' },
+  { key: 'logoUrl', value: '', label: 'Company Logo Image (Base64)', type: 'string' },
   { key: 'baseTransportPrice', value: 500, label: 'Base Transport Price (₹)', type: 'number' },
   { key: 'pricePerKm', value: 25, label: 'Price Per KM (₹)', type: 'number' },
   { key: 'labourPricePerDay', value: 800, label: 'Labour Price Per Day (₹)', type: 'number' },
   { key: 'labourBricksPerDay', value: 1000, label: 'Bricks Per Labour Per Day', type: 'number' },
   { key: 'advancePercentage', value: 30, label: 'Minimum Advance Payment (%)', type: 'number' },
-  { key: 'upiId', value: '', label: 'UPI ID', type: 'string' },
-  { key: 'upiName', value: 'Sri Cement Bricks', label: 'UPI Name', type: 'string' },
-  { key: 'announcementBanner', value: '🧱 Quality Cement Bricks | Bulk Orders Welcome | Call +91 98765 43210', label: 'Announcement Banner', type: 'string' },
+  { key: 'upiId', value: '9390850349@upi', label: 'UPI ID', type: 'string' },
+  { key: 'upiName', value: 'G.Krishna Teja', label: 'UPI Name', type: 'string' },
+  { key: 'announcementBanner', value: '🧱 KRISHNATEJA BRICKS | Premium Cement Bricks | Call G.Krishna Teja at +91 93908 50349', label: 'Announcement Banner', type: 'string' },
   { key: 'minOrderQty', value: 100, label: 'Min Order Qty', type: 'number' },
   { key: 'gstPercentage', value: 0, label: 'GST %', type: 'number' },
 ];

@@ -93,15 +93,23 @@ export default function Navbar({ settings = {} }) {
               <div
                 style={{
                   width: 40, height: 40,
-                  background: 'linear-gradient(135deg, #c2410c 0%, #f97316 100%)',
                   borderRadius: '10px',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   boxShadow: '0 4px 14px rgba(194,65,12,0.45)',
-                  fontSize: '1.2rem',
+                  overflow: 'hidden',
                   flexShrink: 0,
                 }}
               >
-                🧱
+                {settings.logoUrl ? (
+                  <img src={settings.logoUrl} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div style={{
+                    width: '100%', height: '100%',
+                    background: 'linear-gradient(135deg, #c2410c 0%, #f97316 100%)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '1.2rem'
+                  }}>🧱</div>
+                )}
               </div>
               <div>
                 <div

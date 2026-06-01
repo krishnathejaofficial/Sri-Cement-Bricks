@@ -960,9 +960,56 @@ function SettingsTab({ settings, settingsRaw, onRefresh, adminEmail }) {
       <div style={{ display: 'grid', gap: '24px' }}>
         {/* Company */}
         <Section title="🏢 Company Information">
-          <Field k="companyName" label="Company Name" />
-          <Field k="companyPhone" label="Phone Number" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', gridColumn: '1 / -1' }}>
+            <Field k="companyName" label="Company Name" />
+            <Field k="companyPhone" label="Phone Number" />
+          </div>
           <Field k="companyAddress" label="Address" />
+          <Field k="companyEmail" label="Contact Email" />
+          
+          <div>
+            <label>Company Logo</label>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '8px' }}>
+              {form.logoUrl ? (
+                <div style={{ position: 'relative', width: '60px', height: '60px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #e7e5e4', background: '#fcf8f2' }}>
+                  <img src={form.logoUrl} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <button
+                    type="button"
+                    onClick={() => setForm(f => ({ ...f, logoUrl: '' }))}
+                    style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(239, 68, 68, 0.9)', color: 'white', border: 'none', width: '20px', height: '20px', borderRadius: '0 0 0 8px', fontSize: '0.65rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  >✕</button>
+                </div>
+              ) : (
+                <div style={{ width: '60px', height: '60px', borderRadius: '10px', border: '2px dashed #d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', background: '#fffbeb', color: '#ea580c' }}>🧱</div>
+              )}
+              <div style={{ flex: 1 }}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    if (file.size > 2 * 1024 * 1024) {
+                      toast.error('Logo image must be smaller than 2MB');
+                      return;
+                    }
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setForm(f => ({ ...f, logoUrl: reader.result }));
+                    };
+                    reader.readAsDataURL(file);
+                  }}
+                  style={{ display: 'none' }}
+                  id="logo-upload-input"
+                />
+                <label htmlFor="logo-upload-input" style={{ display: 'inline-block', background: 'linear-gradient(135deg, #c2410c, #ea580c)', color: 'white', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem', textAlign: 'center', marginBottom: 0 }}>
+                  📤 Choose Logo Image
+                </label>
+                <div style={{ color: '#9ca3af', fontSize: '0.7rem', marginTop: '6px' }}>Max 2MB. Stored directly in database.</div>
+              </div>
+            </div>
+          </div>
+          
           <Field k="announcementBanner" label="Announcement Banner" hint="Shown at the top of the website. Leave empty to hide." />
         </Section>
 
