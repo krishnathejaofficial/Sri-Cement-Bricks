@@ -1,0 +1,1 @@
+Place your company logo file 'krishnatejabrickslogo.png' in this directory! It will automatically load across the website and admin panel.

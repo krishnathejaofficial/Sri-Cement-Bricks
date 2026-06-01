@@ -89,10 +89,35 @@ export default function AdminDashboard() {
           <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{
-                width: 36, height: 36, background: 'linear-gradient(135deg, #c2410c, #ea580c)',
+                width: 36, height: 36,
                 borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.2rem',
-              }}>🧱</div>
+                overflow: 'hidden',
+                flexShrink: 0,
+              }}>
+                {settings.logoUrl ? (
+                  <img src={settings.logoUrl} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <>
+                    <img 
+                      src="/krishnatejabrickslogo.png" 
+                      alt="Logo" 
+                      onError={(e) => { 
+                        e.target.style.display = 'none'; 
+                        const fb = e.target.nextSibling;
+                        if (fb) fb.style.display = 'flex';
+                      }} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
+                    <div style={{
+                      display: 'none',
+                      width: '100%', height: '100%',
+                      background: 'linear-gradient(135deg, #c2410c, #ea580c)',
+                      alignItems: 'center', justifyContent: 'center',
+                      fontSize: '1.2rem'
+                    }}>🧱</div>
+                  </>
+                )}
+              </div>
               <div>
                 <div style={{ color: 'white', fontWeight: 700, fontSize: '0.9rem', fontFamily: 'Playfair Display' }}>
                   {(settings.companyName || 'Brick Store').length > 16

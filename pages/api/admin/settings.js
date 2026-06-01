@@ -2,6 +2,14 @@ import dbConnect from '../../../lib/dbConnect';
 import Settings from '../../../models/Settings';
 import { isAdminAuthenticated } from '../../../lib/auth';
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 const DEFAULT_SETTINGS = [
   { key: 'companyName', value: 'Sri Cement Bricks', label: 'Company Name', type: 'string' },
   { key: 'companyPhone', value: '+91 98765 43210', label: 'Company Phone', type: 'string' },

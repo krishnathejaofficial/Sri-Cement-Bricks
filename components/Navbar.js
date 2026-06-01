@@ -103,12 +103,25 @@ export default function Navbar({ settings = {} }) {
                 {settings.logoUrl ? (
                   <img src={settings.logoUrl} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <div style={{
-                    width: '100%', height: '100%',
-                    background: 'linear-gradient(135deg, #c2410c 0%, #f97316 100%)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '1.2rem'
-                  }}>🧱</div>
+                  <>
+                    <img 
+                      src="/krishnatejabrickslogo.png" 
+                      alt="Logo" 
+                      onError={(e) => { 
+                        e.target.style.display = 'none'; 
+                        const fb = e.target.nextSibling;
+                        if (fb) fb.style.display = 'flex';
+                      }} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
+                    <div style={{
+                      display: 'none',
+                      width: '100%', height: '100%',
+                      background: 'linear-gradient(135deg, #c2410c 0%, #f97316 100%)',
+                      alignItems: 'center', justifyContent: 'center',
+                      fontSize: '1.2rem'
+                    }}>🧱</div>
+                  </>
                 )}
               </div>
               <div>
