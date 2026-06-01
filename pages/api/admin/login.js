@@ -1,4 +1,5 @@
 import dbConnect from '../../../lib/dbConnect';
+import Admin from '../../../models/Admin';
 import { signToken } from '../../../lib/auth';
 import { serialize } from 'cookie';
 import bcrypt from 'bcryptjs';
@@ -9,15 +10,29 @@ export default async function handler(req, res) {
   await dbConnect();
   const { email, password } = req.body;
 
-  // Check against env variables (simple admin auth)
-  const adminEmail = process.env.ADMIN_EMAIL;
-  const adminPassword = process.env.ADMIN_PASSWORD;
+  // Check if any admin exists in the database
+  let adminCount = await Admin.countDocuments();
+  if (adminCount === 0) {
+    // Auto-seed the first admin from environment variables or safe defaults
+    const defaultEmail = process.env.ADMIN_EMAIL || 'admin@yourbrickcompany.com';
+    const defaultPassword = process.env.ADMIN_PASSWORD || 'Admin@123456';
+    const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+    await Admin.create({ email: defaultEmail, password: hashedPassword });
+  }
 
-  if (email !== adminEmail || password !== adminPassword) {
+  // Find admin in the database
+  const admin = await Admin.findOne({ email });
+  if (!admin) {
     return res.status(401).json({ success: false, message: 'Invalid credentials' });
   }
 
-  const token = signToken({ email, role: 'admin' });
+  // Compare passwords
+  const isMatch = await bcrypt.compare(password, admin.password);
+  if (!isMatch) {
+    return res.status(401).json({ success: false, message: 'Invalid credentials' });
+  }
+
+  const token = signToken({ email: admin.email, role: 'admin' });
 
   res.setHeader('Set-Cookie', serialize('admin_token', token, {
     httpOnly: true,

@@ -262,6 +262,14 @@ export default function OrderModal({ product, onClose, settings, locations }) {
               <div style={{ display: 'grid', gap: '16px' }}>
                 <div>
                   <label>Delivery Location *</label>
+                  <div style={{
+                    background: '#f0fdf4', border: '1px solid #a7f3d0',
+                    borderRadius: '8px', padding: '8px 12px',
+                    fontSize: '0.78rem', color: '#065f46', marginBottom: '8px',
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                  }}>
+                    🚚 We deliver across <strong>Andhra Pradesh</strong> &amp; <strong>Tamil Nadu</strong>
+                  </div>
                   <select
                     value={form.selectedLocationId}
                     onChange={(e) => {
@@ -271,15 +279,59 @@ export default function OrderModal({ product, onClose, settings, locations }) {
                         setForm(f => ({ ...f, selectedLocationId: e.target.value, isCustomLocation: false, customLocationDetails: '' }));
                       }
                     }}
+                    style={{ fontSize: '0.95rem' }}
                   >
-                    <option value="">-- Select a location --</option>
-                    {(locations || []).map(loc => (
-                      <option key={loc._id} value={loc._id}>
-                        {loc.name}{loc.district ? `, ${loc.district}` : ''}
-                        {loc.isFixedPrice ? ` — Transport: ₹${loc.fixedTransportPrice}` : loc.distanceKm ? ` (~${loc.distanceKm}km)` : ''}
-                      </option>
-                    ))}
-                    <option value="custom">📍 Other Location (Admin will quote)</option>
+                    <option value="">-- Select your delivery location --</option>
+
+                    {/* Andhra Pradesh group */}
+                    {(locations || []).filter(l => l.state === 'Andhra Pradesh').length > 0 && (
+                      <optgroup label="📍 Andhra Pradesh">
+                        {(locations || [])
+                          .filter(l => l.state === 'Andhra Pradesh')
+                          .map(loc => (
+                            <option key={loc._id} value={loc._id}>
+                              {loc.name}{loc.district ? `, ${loc.district}` : ''}
+                              {loc.isFixedPrice
+                                ? ` — Transport: ₹${loc.fixedTransportPrice}`
+                                : loc.distanceKm ? ` (~${loc.distanceKm} km)` : ''}
+                            </option>
+                          ))}
+                      </optgroup>
+                    )}
+
+                    {/* Tamil Nadu group */}
+                    {(locations || []).filter(l => l.state === 'Tamil Nadu').length > 0 && (
+                      <optgroup label="📍 Tamil Nadu">
+                        {(locations || [])
+                          .filter(l => l.state === 'Tamil Nadu')
+                          .map(loc => (
+                            <option key={loc._id} value={loc._id}>
+                              {loc.name}{loc.district ? `, ${loc.district}` : ''}
+                              {loc.isFixedPrice
+                                ? ` — Transport: ₹${loc.fixedTransportPrice}`
+                                : loc.distanceKm ? ` (~${loc.distanceKm} km)` : ''}
+                            </option>
+                          ))}
+                      </optgroup>
+                    )}
+
+                    {/* Other States group */}
+                    {(locations || []).filter(l => l.state !== 'Andhra Pradesh' && l.state !== 'Tamil Nadu').length > 0 && (
+                      <optgroup label="📍 Other Areas">
+                        {(locations || [])
+                          .filter(l => l.state !== 'Andhra Pradesh' && l.state !== 'Tamil Nadu')
+                          .map(loc => (
+                            <option key={loc._id} value={loc._id}>
+                              {loc.name}{loc.district ? `, ${loc.district}` : ''}
+                              {loc.isFixedPrice
+                                ? ` — Transport: ₹${loc.fixedTransportPrice}`
+                                : loc.distanceKm ? ` (~${loc.distanceKm} km)` : ''}
+                            </option>
+                          ))}
+                      </optgroup>
+                    )}
+
+                    <option value="custom">📍 My Location Not Listed (Admin will quote)</option>
                   </select>
                 </div>
 

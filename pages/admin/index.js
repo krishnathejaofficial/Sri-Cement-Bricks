@@ -20,10 +20,15 @@ export default function AdminDashboard() {
   const [settingsRaw, setSettingsRaw] = useState([]);
   const [stats, setStats] = useState({});
 
+  const [adminEmail, setAdminEmail] = useState('');
+
   // Auth check
   useEffect(() => {
     axios.get('/api/admin/check')
-      .then(() => fetchAll())
+      .then((res) => {
+        setAdminEmail(res.data.email || '');
+        fetchAll();
+      })
       .catch(() => router.push('/admin/login'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -146,7 +151,7 @@ export default function AdminDashboard() {
           {activeTab === 'Orders' && <OrdersTab orders={orders} onRefresh={fetchAll} />}
           {activeTab === 'Products' && <ProductsTab products={products} onRefresh={fetchAll} />}
           {activeTab === 'Locations' && <LocationsTab locations={locations} onRefresh={fetchAll} />}
-          {activeTab === 'Settings' && <SettingsTab settings={settings} settingsRaw={settingsRaw} onRefresh={fetchAll} />}
+          {activeTab === 'Settings' && <SettingsTab settings={settings} settingsRaw={settingsRaw} onRefresh={fetchAll} adminEmail={adminEmail} />}
         </div>
       </div>
     </>
@@ -616,9 +621,82 @@ function ProductsTab({ products, onRefresh }) {
                 </div>
               </div>
               <div>
-                <label>Image URL (hosted image link)</label>
-                <input value={form.imageUrl} onChange={e => setForm(f => ({ ...f, imageUrl: e.target.value }))} placeholder="https://..." />
-                {form.imageUrl && <img src={form.imageUrl} alt="preview" style={{ marginTop: 8, height: 80, borderRadius: 8, objectFit: 'cover' }} onError={e => e.target.style.display='none'} />}
+                <label>Product Image</label>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '4px' }}>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+                      if (file.size > 8 * 1024 * 1024) {
+                        toast.error('Image size must be less than 8MB');
+                        return;
+                      }
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setForm(f => ({ ...f, imageUrl: reader.result }));
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                    style={{ display: 'none' }}
+                    id="product-image-upload"
+                  />
+                  <label
+                    htmlFor="product-image-upload"
+                    style={{
+                      background: '#fef3e2',
+                      color: '#c2410c',
+                      border: '2px dashed #fed7aa',
+                      padding: '12px 20px',
+                      borderRadius: '10px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#fed7aa'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = '#fef3e2'; }}
+                  >
+                    📤 Choose Direct Image File
+                  </label>
+                  {form.imageUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setForm(f => ({ ...f, imageUrl: '' }))}
+                      style={{
+                        background: '#fee2e2',
+                        color: '#991b1b',
+                        border: '1px solid #fca5a5',
+                        padding: '12px 16px',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        fontSize: '0.85rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      ✕ Remove
+                    </button>
+                  )}
+                </div>
+                {form.imageUrl && (
+                  <div style={{ marginTop: 12, position: 'relative', display: 'inline-block' }}>
+                    <img
+                      src={form.imageUrl}
+                      alt="preview"
+                      style={{
+                        height: 120,
+                        borderRadius: '12px',
+                        border: '2px solid #fed7aa',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <label>Specifications (JSON format)</label>
@@ -758,7 +836,14 @@ function LocationsTab({ locations, onRefresh }) {
                 <div><label>Location Name *</label><input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="e.g. Tirupati" /></div>
                 <div><label>District</label><input value={form.district} onChange={e => setForm(f => ({ ...f, district: e.target.value }))} placeholder="e.g. Tirupati" /></div>
               </div>
-              <div><label>State</label><input value={form.state} onChange={e => setForm(f => ({ ...f, state: e.target.value }))} /></div>
+              <div>
+                <label>State</label>
+                <select value={form.state} onChange={e => setForm(f => ({ ...f, state: e.target.value }))} style={{ padding: '10px', borderRadius: '8px', border: '1px solid #fed7aa', width: '100%' }}>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Karnataka">Karnataka</option>
+                </select>
+              </div>
               <div>
                 <label>Transport Pricing Type</label>
                 <select value={form.isFixedPrice ? 'fixed' : 'perkm'} onChange={e => setForm(f => ({ ...f, isFixedPrice: e.target.value === 'fixed' }))}>
@@ -791,11 +876,52 @@ function LocationsTab({ locations, onRefresh }) {
 }
 
 // ============ SETTINGS TAB ============
-function SettingsTab({ settings, settingsRaw, onRefresh }) {
+function SettingsTab({ settings, settingsRaw, onRefresh, adminEmail }) {
   const [form, setForm] = useState(settings);
   const [saving, setSaving] = useState(false);
 
+  const [credForm, setCredForm] = useState({
+    email: '',
+    password: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [savingCred, setSavingCred] = useState(false);
+
   useEffect(() => { setForm(settings); }, [settings]);
+  
+  useEffect(() => {
+    if (adminEmail) {
+      setCredForm(f => ({ ...f, email: adminEmail }));
+    }
+  }, [adminEmail]);
+
+  const handleSaveCredentials = async (e) => {
+    e.preventDefault();
+    if (!credForm.email) {
+      toast.error('Email is required');
+      return;
+    }
+    if (!credForm.password) {
+      toast.error('Current password is required to save changes');
+      return;
+    }
+    if (credForm.newPassword && credForm.newPassword !== credForm.confirmPassword) {
+      toast.error('New passwords do not match');
+      return;
+    }
+    setSavingCred(true);
+    try {
+      await axios.put('/api/admin/credentials', credForm, { withCredentials: true });
+      toast.success('Admin credentials updated successfully!');
+      setCredForm(f => ({ ...f, password: '', newPassword: '', confirmPassword: '' }));
+      onRefresh();
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to update credentials');
+    } finally {
+      setSavingCred(false);
+    }
+  };
 
   const handleSave = async () => {
     setSaving(true);
@@ -864,6 +990,76 @@ function SettingsTab({ settings, settingsRaw, onRefresh }) {
         <Section title="📦 Order Settings">
           <Field k="minOrderQty" label="Global Minimum Order Quantity" type="number" />
         </Section>
+
+        {/* Admin Credentials */}
+        <div style={{ background: 'white', borderRadius: '16px', padding: '24px', border: '1px solid #f3f4f6', gridColumn: '1 / -1' }}>
+          <h3 style={{ fontFamily: 'Playfair Display', color: '#1c0a00', marginBottom: '20px', fontSize: '1.1rem', paddingBottom: '12px', borderBottom: '2px solid #fee2e2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            🔒 Admin Security Credentials
+          </h3>
+          <form onSubmit={handleSaveCredentials} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px', alignItems: 'end' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '6px', fontWeight: 600, fontSize: '0.85rem', color: '#374151' }}>Admin Email Address *</label>
+              <input
+                type="email"
+                value={credForm.email}
+                onChange={e => setCredForm(f => ({ ...f, email: e.target.value }))}
+                placeholder="admin@email.com"
+                required
+                style={{ padding: '10px', borderRadius: '8px', border: '1px solid #fed7aa', width: '100%' }}
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '6px', fontWeight: 600, fontSize: '0.85rem', color: '#374151' }}>Current Password *</label>
+              <input
+                type="password"
+                value={credForm.password}
+                onChange={e => setCredForm(f => ({ ...f, password: e.target.value }))}
+                placeholder="Enter current password"
+                required
+                style={{ padding: '10px', borderRadius: '8px', border: '1px solid #fed7aa', width: '100%' }}
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '6px', fontWeight: 600, fontSize: '0.85rem', color: '#374151' }}>New Password (optional)</label>
+              <input
+                type="password"
+                value={credForm.newPassword}
+                onChange={e => setCredForm(f => ({ ...f, newPassword: e.target.value }))}
+                placeholder="Leave blank to keep"
+                style={{ padding: '10px', borderRadius: '8px', border: '1px solid #fed7aa', width: '100%' }}
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '6px', fontWeight: 600, fontSize: '0.85rem', color: '#374151' }}>Confirm New Password</label>
+              <input
+                type="password"
+                value={credForm.confirmPassword}
+                onChange={e => setCredForm(f => ({ ...f, confirmPassword: e.target.value }))}
+                placeholder="Leave blank to keep"
+                style={{ padding: '10px', borderRadius: '8px', border: '1px solid #fed7aa', width: '100%' }}
+              />
+            </div>
+            <div style={{ gridColumn: '1 / -1', textAlign: 'right', marginTop: '8px' }}>
+              <button
+                type="submit"
+                disabled={savingCred}
+                style={{
+                  background: savingCred ? '#9ca3af' : 'linear-gradient(135deg, #1c0a00, #3d1a02)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '10px',
+                  cursor: savingCred ? 'not-allowed' : 'pointer',
+                  fontFamily: 'DM Sans',
+                  fontWeight: 700,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                }}
+              >
+                {savingCred ? '⏳ Saving...' : '🔒 Update Credentials'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <div style={{ marginTop: '24px', textAlign: 'right' }}>
