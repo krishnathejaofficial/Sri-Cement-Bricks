@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "@mongodb_uri",
+    "JWT_SECRET": "@jwt_secret",
+    "ADMIN_EMAIL": "@admin_email",
+    "ADMIN_PASSWORD": "@admin_password",
+    "EMAIL_USER": "@email_user",
+    "EMAIL_PASS": "@email_pass",
+    "NEXT_PUBLIC_UPI_ID": "@next_public_upi_id",
+    "NEXT_PUBLIC_COMPANY_NAME": "@next_public_company_name",
+    "NEXT_PUBLIC_APP_URL": "@next_public_app_url"
+  }
+}
